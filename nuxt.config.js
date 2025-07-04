@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - lcandug',
-    title: 'lcandug',
+    titleTemplate: '%s - bsit3a-system-integ',
+    title: 'bsit3a-system-integ',
     htmlAttrs: {
       lang: 'en'
     },
@@ -41,7 +41,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
+  auth: {
+    // Options
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

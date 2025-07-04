@@ -102,16 +102,13 @@ export default {
           title: 'Welcome',
           to: '/'
         },
+        
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
         },
-        {
-          icon: 'mdi-account',
-          title: 'Sign-in',
-          to: '/signin'
-        },
+
         {
           icon: 'mdi-account',
           title: 'Log-in',
