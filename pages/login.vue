@@ -62,6 +62,16 @@
             Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
           </a>
         </v-card-text>
+        <v-btn
+          class="mb-8"
+          color="red"
+          size="large"
+          variant="tonal"
+          block 
+          @click=""
+        >
+          Sign in with Google
+        </v-btn>
       </v-card>
     </div>
   </template>
@@ -74,4 +84,11 @@
 <script>
 export default{
     layout:"auth",
-}</script>
+    middleware:['auth'],
+    methods: {
+        signInWithGoogle(){
+            this.$auth.loginWith('google')
+        }
+    }
+};
+</script>
