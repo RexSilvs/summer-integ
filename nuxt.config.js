@@ -56,7 +56,7 @@ export default {
     strategies: {
       google: {
         clientId: '341638809307-jika6k7d353ha5sn3k9jc0fld7ifhep0.apps.googleusercontent.com',
-        scheme:'auth2',
+        Scheme:'auth2',
         endpoints:{
           authorization:"https://accounts.google.com/o/oauth2/auth",
           userInfo: "https://www.googleapis.com/auth2/v3/userinfo",
