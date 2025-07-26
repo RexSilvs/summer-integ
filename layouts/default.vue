@@ -114,7 +114,7 @@ export default {
         {
           icon: 'mdi-account',
           title: 'Log-in',
-          to: '/login'
+          to: '/auth/login'
         }
       ],
       miniVariant: false,
