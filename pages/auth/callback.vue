@@ -2,14 +2,14 @@
     <div class="p-4">Signing you in...</div>
 </template>
 <script>
-export default{
+export default {
     async mounted() {
-        try{
+        try {
             await this.$auth.fetchUser()
             this.$router.replace('/')
         } catch (error) {
-            console.error('Login failed', error);
-            this.$router.push('/auth/signin')
+            console.error('Login Failed:', error);
+            this.$router.push('/auth/login')
         }
     }
 }

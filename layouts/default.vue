@@ -91,8 +91,8 @@
 
 <script>
 export default {
-  name: 'DefaultLayout',
-  middleware:['auth'],
+  name: 'DefaultLayout', 
+  middleware: ['auth'],
   data () {
     return {
       clipped: false,
@@ -104,17 +104,25 @@ export default {
           title: 'Welcome',
           to: '/'
         },
-        
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
         },
-
         {
-          icon: 'mdi-account',
-          title: 'Log-in',
-          to: '/auth/login'
+          icon: 'mdi-login',
+          title: 'Sign In',
+          to: 'auth/login'
+        },
+        {
+          icon: 'mdi-qrcode-scan',
+          title: 'Qr-Scanner',
+          to: 'auth/scan'
+        },
+        {
+          icon: 'mdi-calendar',
+          title: 'Event Calendar',
+          to: 'auth/EventCalendar'
         }
       ],
       miniVariant: false,

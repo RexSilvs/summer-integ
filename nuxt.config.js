@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - bsit3a-system-integ',
-    title: 'bsit3a-system-integ',
+    titleTemplate: 'Summer Integration Project',
+    title: 'RexS',
     htmlAttrs: {
       lang: 'en'
     },
@@ -28,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/calendar.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,38 +42,39 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-     '@nuxtjs/axios',
+    '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
-  auth: {
-    redirect:{
-      login: '/auth/login',
-      logout:'/auth/login',
-      callback:'/auth/callback',
-      home: '/'
-    },
-    autoFetchUser:false,
 
+  auth: {
+    // Options
+     redirect: {
+      login: '/auth/login',     // Redirect user when not connected
+      logout: '/auth/login',    // Redirect user when logut
+      callback: '/auth/callback',   // Callback URL after login
+      home: '/'        // After login redirect
+     },
+     autoFetchUser: false,
     strategies: {
       google: {
         clientId: '341638809307-jika6k7d353ha5sn3k9jc0fld7ifhep0.apps.googleusercontent.com',
-        Scheme:'auth2',
-        endpoints:{
-          authorization:"https://accounts.google.com/o/oauth2/auth",
-          userInfo: "https://www.googleapis.com/auth2/v3/userinfo",
+        scheme: 'oauth2',
+        endpoints: {
+          authorization: "https://accounts.google.com/o/oauth2/auth",
+          userInfo: "https://www.googleapis.com/oauth2/v3/userinfo",
         },
         token: {
           property: "access_token",
-          type : "Bearer",
+          type: "Bearer",
           maxAge: 1800,
         },
         responseType: "token id_token",
-        scope:["openid","profile","email"],
-        redirectUri:"http://localhost:3000/auth/callback",
+        scope: ["openid", "profile", "email"],
+        redirectUri: "http://localhost:3000/auth/callback",
         codeChallengeMethod: "",
       },
     }
-  },
+  }, 
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
