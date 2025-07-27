@@ -1,104 +1,55 @@
 <template>
-  <div class="container">
-    <h1>Google Calendar Scheduler</h1>
-    <div class="button-group">
-      <button @click="create" class="action-btn">📅 Create Event</button>
-      <button @click="showEvents" class="action-btn">📖 Show Events</button>
+  <v-container class="text-center">
+    <h1 class="my-5">Google Calendar Scheduler</h1>
+
+    <v-btn color="primary" class="mb-2" @click="createEvent">
+      <v-icon left>mdi-calendar-plus</v-icon> Create Event
+    </v-btn>
+
+    <v-btn color="primary" class="mb-2" @click="listEvents">
+      <v-icon left>mdi-calendar-text</v-icon> Show Events
+    </v-btn>
+
+    <v-btn color="red" class="mb-2" @click="logout">
+      <v-icon left>mdi-logout</v-icon> Logout
+    </v-btn>
+
+    <div v-if="events.length">
+      <h3 class="mt-5">Upcoming Events</h3>
+      <ul>
+        <li v-for="event in events" :key="event.id">{{ event.summary }} - {{ event.start.dateTime }}</li>
+      </ul>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
-  async mounted() {
-    try {
-      console.log('Calendar Plugin:', this.$calendar); // Debugging
-      const token = localStorage.getItem('access_token');
-      if (!token) throw new Error('Access token not found');
-      await this.$calendar.initGapiClient(token);
-      console.log('GAPI client initialized!');
-    } catch (error) {
-      console.error('GAPI init failed:', error);
+  data() {
+    return {
+      events: [],
     }
   },
   methods: {
-    async create() {
+    async createEvent() {
       try {
-        const event = await this.$calendar.createEvent({
-          summary: 'My Custom Event',
-          start: {
-            dateTime: '2025-07-28T14:00:00+08:00',
-            timeZone: 'Asia/Manila'
-          },
-          end: {
-            dateTime: '2025-07-28T15:00:00+08:00',
-            timeZone: 'Asia/Manila'
-          }
-        });
-        alert('Event created: ' + event.htmlLink);
+        await this.$calendar.createEvent('Meeting with Team', '2025-07-28T10:00:00', '2025-07-28T11:00:00')
+        alert('Event Created!')
       } catch (error) {
-        console.error('Create error:', error);
-        alert('Error creating event');
+        console.error('Create Event Error:', error)
       }
     },
-    async showEvents() {
+    async listEvents() {
       try {
-        const events = await this.$calendar.listEvents();
-        if (!events.length) {
-          console.log('No upcoming events found.');
-        } else {
-          console.log('Upcoming events:');
-          events.forEach(event => {
-            const start = event.start.dateTime || event.start.date;
-            console.log(`${start} - ${event.summary}`);
-          });
-        }
+        const events = await this.$calendar.listEvents()
+        this.events = events
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error('List Events Error:', error)
       }
-    }
-  }
-};
+    },
+    async logout() {
+      await this.$auth.logout()
+    },
+  },
+}
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  min-height: 100vh;
-}
-
-h1 {
-  margin-bottom: 30px;
-  font-size: 28px;
-  color: #333;
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  max-width: 300px;
-}
-
-.action-btn {
-  padding: 12px 20px;
-  background-color: #4285f4;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background 0.2s ease;
-}
-
-.action-btn:hover {
-  background-color: #3367d6;
-}
-</style>

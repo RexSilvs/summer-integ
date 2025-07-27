@@ -1,82 +1,58 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: 'Summer Integration Project',
     title: 'RexS',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/calendar.js',
-  ],
+  plugins: ['~/plugins/google-calendar.js'],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ['@nuxtjs/vuetify'],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   auth: {
-    // Options
-     redirect: {
-      login: '/auth/login',     // Redirect user when not connected
-      logout: '/auth/login',    // Redirect user when logut
-      callback: '/auth/callback',   // Callback URL after login
-      home: '/'        // After login redirect
-     },
-     autoFetchUser: false,
+    redirect: {
+      login: '/auth/login',
+      logout: '/auth/login',
+      callback: '/auth/callback',
+      home: '/auth/EventCalendar',
+    },
     strategies: {
       google: {
         clientId: '341638809307-jika6k7d353ha5sn3k9jc0fld7ifhep0.apps.googleusercontent.com',
         scheme: 'oauth2',
         endpoints: {
-          authorization: "https://accounts.google.com/o/oauth2/auth",
-          userInfo: "https://www.googleapis.com/oauth2/v3/userinfo",
+          authorization: 'https://accounts.google.com/o/oauth2/auth',
+          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo',
         },
         token: {
-          property: "access_token",
-          type: "Bearer",
+          property: 'access_token',
+          type: 'Bearer',
           maxAge: 1800,
         },
-        responseType: "token id_token",
-        scope: ["openid", "profile", "email"],
-        redirectUri: "http://localhost:3000/auth/callback",
-        codeChallengeMethod: "",
+        responseType: 'token id_token',
+        scope: ['openid', 'profile', 'email', 'https://www.googleapis.com/auth/calendar'],
+        redirectUri: 'http://localhost:3000/auth/callback',
+        codeChallengeMethod: '',
       },
-    }
-  }, 
+    },
+  },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -89,13 +65,11 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
-    }
+          success: colors.green.accent3,
+        },
+      },
+    },
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  build: {},
 }
