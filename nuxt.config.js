@@ -47,7 +47,7 @@ export default {
         },
         responseType: 'token id_token',
         scope: ['openid', 'profile', 'email', 'https://www.googleapis.com/auth/calendar'],
-        redirectUri: 'http://localhost:3000/auth/callback',
+        redirectUri: 'https://summer-integ.vercel.app/auth/callback',
         codeChallengeMethod: '',
       },
     },
