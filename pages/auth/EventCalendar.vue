@@ -17,7 +17,7 @@
     <div v-if="events.length">
       <h3 class="mt-5">Upcoming Events</h3>
       <ul>
-        <li v-for="event in events" :key="event.id">{{ event.summary }} - {{ event.start.dateTime }}</li>
+        <li v-for="event in events" :key="event.id">{{ event.summary }} - {{ convertDate(new Date(event.start.dateTime).getTime()) }}</li>
       </ul>
     </div>
   </v-container>
@@ -50,6 +50,13 @@ export default {
     async logout() {
       await this.$auth.logout()
     },
+    convertDate(time) {
+      const date = new Date(time * 1000); 
+
+      const fullTime = date.toLocaleString();
+    
+      return fullTime
+    }
   },
 }
 </script>
